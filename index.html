@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GUESS_NUMBER_GAME</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="test-tube.css  ">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="introCard" class="screen" style="text-align: center">
+        <div class="card gift">
+          <h1>Try to guess</h1>
+          <p>Click the gift box to open mystery number</p>
+          <img src="./assets/gift-box.png" style="width: 50px" />
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="nav">
+            <h1>Trò chơi đoán số</h1>
+        </div>
+    
+        <div class="input-field">
+            <input type="number" placeholder="Hãy đoán một số" id="inputNum">
+        </div>
+    
+        <div class="btn">
+            <button id="btnResetGame">Reset game</button>
+        </div>
+    
+        <div class="btn">
+            <button id="btnStartGame">Start game</button> <!-- New Start Game button -->
+        </div>
+        
+        <div class="result-show">
+            <p id="lbResult">Kết quả:</p>
+            <p id="lbLives">Lượt chơi còn lại: 5</p>
+            <p id="lbTimer">Thời gian còn lại: 10 giây</p>
+        </div>
+
+        <!-- <div id="gameOver" class="game-over" style="display: none;">
+            <h2>Game Over</h2>
+            <p>Bạn đã hết lượt chơi. Hãy nhấn "Reset game" để thử lại!</p>
+        </div> -->
+
+    </div>
+
+    <script>
+        const introCard = document.getElementById("introCard");
+        // const guessCard = document.getElementById("guessCard");
+        // const guessInput = document.getElementById("guessInput");
+        // const btGuess = document.getElementById("btGuess");
+        // const gameOverCard = document.getElementById("gameOverCard");
+        // const winCard = document.getElementById("winCard");
+        // const canvas = document.getElementById("canvas");
+        // const lbPrompt = document.getElementById("lbPrompt");
+
+        let btnStartGame = document.getElementById("btnStartGame");
+        let btnResetGame = document.getElementById("btnResetGame");
+        let inputNum = document.getElementById("inputNum");
+        let lbResult = document.getElementById("lbResult");
+        let lbLives = document.getElementById("lbLives");
+        let lbTimer = document.getElementById("lbTimer");
+        let gameOverMessage = document.getElementById("gameOver");
+
+        let inputField = document.querySelector('.input-field');
+        let btnContainer = document.querySelector('.btn');
+        let resultShow = document.querySelector('.result-show');
+
+        let randomNumber = 0;
+        let live = 0;
+
+        let timer;
+        let timeLeft = 10;
+
+        introCard.onclick = () => {
+        new Audio("./assets/title.mp3").play();
+        mysteryNumber = Math.floor(Math.random() * 100) + 1;
+        console.log(mysteryNumber);
+        live = 5;
+        document.documentElement.style.setProperty(
+        "--tube-percentage",
+        (5 - live) * 20 + "%"
+        );
+        // start the game
+        introCard.classList.add("zoomOutAndFadeOut");
+        setTimeout(() => {
+        introCard.style.display = "none";
+        }, 1000);
+    };
+
+    function startTimer() {
+            timeLeft = 10; // Reset time for each round
+            lbTimer.innerText = "Thời gian còn lại: " + timeLeft + " giây";
+            timer = setInterval(() => {
+                timeLeft--;
+                lbTimer.innerText = "Thời gian còn lại: " + timeLeft + " giây";
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    loseLife();
+                }
+            }, 1000);
+        }
+
+        function loseLife() {
+            live--;
+            lbLives.innerText = "Lượt chơi còn lại: " + live;
+            lbResult.innerText = "Hết thời gian! Bạn đã mất một lượt.";
+            if (live <= 0) {
+                lbResult.innerText += " Bạn đã hết lượt chơi.";
+                inputNum.style.display = "none";
+            } else {
+                startTimer(); // Start the timer for the next round
+            }
+        }
+
+        function newGame(){
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            live = 5;
+            console.log("New game create")
+            console.log(randomNumber)
+            inputNum.style.display = "block";
+            btnResetGame.style.display = "none";
+            inputNum.value = "";
+            lbResult.innerText = "Kết quả:";
+            lbLives.innerText = "Lượt chơi còn lại: " + live;
+            clearInterval(timer);
+            startTimer();
+        };
+
+        btnStartGame.onclick = () => {
+            // Show game elements and start a new game
+            inputField.style.display = "block";
+            btnResetGame.style.display = "block";
+            resultShow.style.display = "block";
+            btnStartGame.style.display = "none"; // Hide the start button
+            newGame();
+        };
+
+        btnResetGame.onclick = newGame;
+
+
+        inputNum.onkeypress = (key) => {
+            
+            if (live == 0){
+                return;
+            }
+            if (key.code == "Enter"){
+                console.log("Submit number");
+                let guessNum = parseInt(inputNum.value);
+                console.log(guessNum);
+                inputNum.value = "";
+
+                clearInterval(timer);
+
+                if (guessNum === randomNumber) {
+                    lbResult.innerText = "Bạn đã đoán đúng: " + randomNumber;
+                    inputNum.style.display = "none";
+                } else if (guessNum < randomNumber) {
+                    lbResult.innerText = "Số bạn đoán nhỏ hơn kết quả";
+                } else {
+                    lbResult.innerText = "Số bạn đoán lớn hơn kết quả";
+                }
+
+                live--;
+                lbLives.innerText = "Lượt chơi còn lại: " + live;
+
+                if (live === 0) {
+                    lbResult.innerText += " Bạn đã hết lượt chơi.";
+                    inputNum.style.display = "none";
+                } else {
+                    startTimer(); // Start the timer for the next round
+                    gameOverMessage.style.display = "block"; // Show Game Over message
+                }
+            }
+        };
+        introCard
+        // Initially hide game elements
+        inputField.style.display = "none";
+        btnResetContainer.style.display = "none";
+        resultShow.style.display = "none";
+        // newGame();
+    </script>
+    <!-- <script src="main.js"></script> -->
+</body>
+
+</html>

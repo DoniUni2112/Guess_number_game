@@ -1,0 +1,180 @@
+*{
+    font-family: "Roboto", sans-serif;
+    transition: 0.3s;
+    
+}
+
+body {
+    background-color: #37d072;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* html{
+    background-image: url("1847.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+} */
+
+.screen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .container{
+    width: 100vw;
+    height: 100vh;
+    margin-top: 250px;
+    
+} */
+
+.nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.nav h1{
+    font-size: 100px;
+
+}
+
+.input-field{
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 550px;
+}
+
+.input-field input{
+    border-radius: 10px;
+    font-size: 50px;
+    background-color: #a18cd1;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    box-sizing: border-box;
+    padding: 30px 100px;
+    
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-field input::placeholder{
+    color: white;
+    font-size: 50px;
+}
+
+.input-field input:hover{
+    background-color: #fbc2eb;
+}
+
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    
+}
+
+.btn button{
+    border-radius: 10px;
+    
+    cursor: pointer;
+    background-color: #fbc2eb;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn button:hover{
+    background-color: #a18cd1;
+}
+
+.result-show{
+    font-size: 24px;
+    display: flex;
+    margin-left: 340px;
+}
+
+.result-show{
+    flex-direction: column;
+    padding-right: 70%;
+}
+
+.result-show p{
+    font-weight: bold;
+}
+
+.card {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.gift:hover {
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+    animation: shake 0.5s;
+  
+    /* When the animation is finished, start again */
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.zoomOutAndFadeOut {
+    animation: zoomOutAndFadeOut 0.5s forwards;
+}
+
+@keyframes zoomOutAndFadeOut {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(10);
+        opacity: 0;
+    }
+    
+}
+
+.floating {
+    animation: float 2s infinite;
+
+}
+
+@keyframes float {
+	0% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
+	50% {
+		box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
+		transform: translatey(-20px);
+	}
+	100% {
+		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
+		transform: translatey(0px);
+	}
+}
